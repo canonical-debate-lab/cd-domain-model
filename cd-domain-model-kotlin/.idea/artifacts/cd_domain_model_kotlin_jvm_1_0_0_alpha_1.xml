@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="cd-domain-model-kotlin-jvm-1.0.0-alpha.1">
+    <output-path>C:\src\cd-domain-model-kotlin\build\libs</output-path>
+    <root id="archive" name="cd-domain-model-kotlin-jvm-1.0.0-alpha.1.jar">
+      <element id="module-output" name="cd-domain-model-kotlin.jvmMain" />
+    </root>
+  </artifact>
+</component>
