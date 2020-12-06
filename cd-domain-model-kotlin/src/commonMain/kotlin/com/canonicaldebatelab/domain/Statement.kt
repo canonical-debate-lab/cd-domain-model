@@ -13,7 +13,7 @@ import kotlinx.serialization.Serializable
  * true or false—regardless of whether this is something very vague or precise—they would
  * make the same assessment about the other sentences.
  */
-class Statement private constructor( val id: String, sentences: Set<DeclarativeSentence> )
+class Statement private constructor( val id: Id, sentences: Set<DeclarativeSentence> )
 {
     init { require( sentences.isNotEmpty() ) }
 
@@ -24,7 +24,7 @@ class Statement private constructor( val id: String, sentences: Set<DeclarativeS
 
     companion object
     {
-        fun fromDeclarativeSentence( id: String, sentence: String ): Statement
+        fun fromDeclarativeSentence( id: Id, sentence: String ): Statement
         {
             val sentences = setOf( DeclarativeSentence( sentence ) )
             return Statement( id, sentences )
@@ -45,4 +45,4 @@ class Statement private constructor( val id: String, sentences: Set<DeclarativeS
 
 @Serializable
 @SerialName( "Statement" )
-data class StatementSnapshot( val id: String, val sentences: Set<DeclarativeSentence> )
+data class StatementSnapshot( val id: Id, val sentences: Set<DeclarativeSentence> )
