@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 
 /**
  * Anything which can be said to be true or false, regardless of whether it is fact or opinion,
- * and regardless of whether people share the same intent when they say it is true or false.
+ * and regardless of whether people truly understand each other when they say it is true or false.
  *
  * A statement can be stated using one or more interchangeable declarative [sentences].
  * "Interchangeable" means it is expected that when somebody states one sentence is
