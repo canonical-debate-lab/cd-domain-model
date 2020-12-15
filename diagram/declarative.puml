@@ -1,0 +1,16 @@
+@startuml
+
+class DeclarativeSentence
+
+
+class Claim
+Claim "*" *-- "*" DeclarativeSentence : equivalence
+
+DeclarativeSentence "*" --> "*" DeclarativeSentence : equivalent
+(DeclarativeSentence , DeclarativeSentence) . StatementRelation
+
+class Argument
+Argument o--> "*" Claim : premises
+Argument o--> "1" Claim : conclusion
+
+@enduml
