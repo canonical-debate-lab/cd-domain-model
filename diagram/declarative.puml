@@ -7,7 +7,7 @@ class Claim
 Claim "*" *-- "*" DeclarativeSentence : equivalence
 
 DeclarativeSentence "*" --> "*" DeclarativeSentence : equivalent
-(DeclarativeSentence , DeclarativeSentence) . StatementRelation
+(DeclarativeSentence , DeclarativeSentence) . SentenceRelation
 
 class Argument
 Argument o--> "*" Claim : premises
