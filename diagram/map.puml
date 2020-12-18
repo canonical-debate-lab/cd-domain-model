@@ -1,8 +1,15 @@
 @startuml
 
+class Topic {
+  id
+}
+note left: Topic structure is derived from its \nunique (optional) formalization\nbut carried by the Topic,\nbecause the formalization is a Symbol
+
 Symbol <|-- DeclarativeSentence
 Topic "1..*" --o "*" Symbol
 (Topic , Symbol) . Interpretation
+class Interpretation {}
+note top: could be restricted to a community or domain
 
 Symbol <|-- Formalization
 
@@ -10,21 +17,34 @@ class Formalization {
   Formalization canonicalize()
 }
 
-Topic o-- "0..1" Formalization
+Topic "1" *-- "0..1" Formalization
 
 
 Symbol <|-- Quote
 
-Symbol "1" --> "1" Symbol
+Symbol "*" --> "*" Symbol
 (Symbol , Symbol) . SymbolRelation
-Quote o--> "1" Document
 
-' Note: the following relations best expressed 
-' at the topic level, but are derived from the formalization.
-' However, formalization is a symbol, structure belongs in the topic.
-' The Topic has at most one canonical formalization; so it makes sense to say
-' that the properties from the formalization are expressed in the topic.
-' Note 2: if there is a dispute of formalization, split the topic.
+SymbolRelation o--> "1" SymbolRelationType
+
+enum SymbolRelationType {
+  equivalent
+  not_equivalent
+  precision
+}
+
+
+Quote "*" --* "1" Document
+
+class Quote {
+  Symbol detach()
+}
+
+class Document {
+
+}
+note bottom: digital objects, Agents and literals are also Topics
+
 
 Topic <|-- Claim
 Claim <|-- Argument
@@ -34,11 +54,19 @@ Argument o--> "*" Claim : premises
 Argument o--> "1" Claim : conclusion
 
 Claim <|-- LogicalVariant
-LogicalVariant : truthvalue
 Claim "1" <--o LogicalVariant
-LogicalVariant : positiveVariant Claim
 
-Claim "1..*" <--o CompositeClaim
-Topic <|-- CompositeClaim
+class LogicalVariant {
+  truthvalue
+  Claim baseClaim
+}
+
+class ArgumentFamily {
+  Claim baseConclusion()
+  Claim[] basePremises()
+}
+
+Argument "1..*" <--o ArgumentFamily
+Topic <|-- ArgumentFamily
 
 @enduml
