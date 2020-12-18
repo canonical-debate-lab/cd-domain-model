@@ -1,14 +1,27 @@
 @startuml
 
-class Topic {
+interface Topic {
   id
 }
-note left: Topic structure is derived from its \nunique (optional) formalization\nbut carried by the Topic,\nbecause the formalization is a Symbol
 
-Topic "1..*" --o "*" Symbol
-(Topic , Symbol) . Interpretation
+hide Topic
+
+class ThoughtProxy {
+  id
+}
+
+Topic <|-- ThoughtProxy
+
+note left: ThoughtProxy is an equivalence class of Symbols,\n induced by equivalence SymbolRelations.\n structure is derived from its \nunique (optional) formalization\nbut carried by the ThoughtProxy,\nbecause the formalization is a Symbol
+
+ThoughtProxy "1..*" o--* "*" Symbol
+(ThoughtProxy , Symbol) . Interpretation
 class Interpretation {}
-note top: could be restricted to a community or domain
+note top: Many interpretations of a Decontextualized Symbol;\nA subset will apply to the Symbol in a specific Context,\nwhich restrains the interpretations.\nCould be restricted to a community or domain
+
+class DecontextualizedSymbol {
+  String text
+}
 
 DecontextualizedSymbol <|-- Formalization
 
@@ -16,9 +29,9 @@ class Formalization {
   Formalization canonicalize()
 }
 
-Topic "1" *-- "0..1" Formalization
+ThoughtProxy "1" *-- "0..1" Formalization
 
-Topic <|-- Claim
+ThoughtProxy <|-- Claim
 
 DecontextualizedSymbol "*" --> "*" DecontextualizedSymbol
 (DecontextualizedSymbol , DecontextualizedSymbol) . SymbolRelation
@@ -32,26 +45,27 @@ enum SymbolRelationType {
   precision
 }
 
-Quote "*" -- "1" DecontextualizedSymbol
-Quote "*" --* "1" Document
+SymbolInContext "*" o--* "1" DecontextualizedSymbol
+SymbolInContext "*" --* "1" Document
 
 interface Symbol
 Symbol <|-- DecontextualizedSymbol
-Symbol <|-- Quote
+Symbol <|-- SymbolInContext
 
-class Quote {
+class SymbolInContext {
+  xpointer position
   DecontextualizedSymbol detach()
 }
 
 class Document {
-
 }
-note bottom: digital objects, Agents and literals are also Topics
+note bottom: Context for the Symbol.\nUsually text, could be media.
+' Digital objects, Agents and literals are also Topics
 
 
 Claim <|-- Argument
 
-Topic "*" <-- Claim : entities
+ThoughtProxy "*" <-- Claim : entities
 Argument o--> "*" Claim : premises
 Argument o--> "1" Claim : conclusion
 
@@ -71,6 +85,6 @@ class ArgumentFamily {
 }
 
 Argument "1..*" <--o ArgumentFamily
-Topic <|-- ArgumentFamily
+ThoughtProxy <|-- ArgumentFamily
 
 @enduml
