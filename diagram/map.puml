@@ -1,0 +1,44 @@
+@startuml
+
+Symbol <|-- DeclarativeSentence
+Topic "1..*" --o "*" Symbol
+(Topic , Symbol) . Interpretation
+
+Symbol <|-- Formalization
+
+class Formalization {
+  Formalization canonicalize()
+}
+
+Topic o-- "0..1" Formalization
+
+
+Symbol <|-- Quote
+
+Symbol "1" --> "1" Symbol
+(Symbol , Symbol) . SymbolRelation
+Quote o--> "1" Document
+
+' Note: the following relations best expressed 
+' at the topic level, but are derived from the formalization.
+' However, formalization is a symbol, structure belongs in the topic.
+' The Topic has at most one canonical formalization; so it makes sense to say
+' that the properties from the formalization are expressed in the topic.
+' Note 2: if there is a dispute of formalization, split the topic.
+
+Topic <|-- Claim
+Claim <|-- Argument
+
+Topic "*" <-- Claim : entities
+Argument o--> "*" Claim : premises
+Argument o--> "1" Claim : conclusion
+
+Claim <|-- LogicalVariant
+LogicalVariant : truthvalue
+Claim "1" <--o LogicalVariant
+LogicalVariant : positiveVariant Claim
+
+Claim "1..*" <--o CompositeClaim
+Topic <|-- CompositeClaim
+
+@enduml
