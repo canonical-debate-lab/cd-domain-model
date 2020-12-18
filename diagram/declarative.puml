@@ -4,7 +4,7 @@ class DeclarativeSentence
 
 
 class Claim
-Claim "*" *-- "*" DeclarativeSentence : equivalence
+Claim "*" o--* "*" DeclarativeSentence : equivalence
 
 DeclarativeSentence "*" --> "*" DeclarativeSentence : equivalent
 (DeclarativeSentence , DeclarativeSentence) . SentenceRelation

@@ -18,7 +18,7 @@ class Formalization {
 
 Topic "1" *-- "0..1" Formalization
 
-
+Topic <|-- Claim
 
 DecontextualizedSymbol "*" --> "*" DecontextualizedSymbol
 (DecontextualizedSymbol , DecontextualizedSymbol) . SymbolRelation
