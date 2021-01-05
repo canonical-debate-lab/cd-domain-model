@@ -1,0 +1,18 @@
+@startuml
+
+class Claim {
+  String sentence
+}
+
+Claim "*" <-> "*" Claim : > equivalent_to
+
+'(Claim, Claim) . ClaimEquivalence
+'ClaimEquivalenceClass o-> "*" Claim
+
+'ClaimEquivalence "*" -> "*" ClaimEquivalence : > negation
+
+Claim "*" -> "*" Claim : > negation
+note  "anti-reflexive, symmetric, anti-transitive" as N1
+(Claim, Claim) .. N1
+
+@enduml
