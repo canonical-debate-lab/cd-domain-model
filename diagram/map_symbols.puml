@@ -8,6 +8,7 @@ hide Topic
 
 class ThoughtProxy {
   id
+  formal_representation(): Formalization
 }
 
 Topic <|-- ThoughtProxy
@@ -17,7 +18,7 @@ note left: ThoughtProxy is an equivalence class of Symbols,\n induced by equival
 ThoughtProxy "1..*" o--* "*" Symbol
 (ThoughtProxy , Symbol) . Interpretation
 class Interpretation {}
-note top: Many interpretations of a Decontextualized Symbol;\nA subset will apply to the Symbol in a specific Context,\nwhich restrains the interpretations.\nCould be restricted to a community or domain
+note bottom: Many interpretations of a Decontextualized Symbol;\nA subset will apply to the Symbol in a specific Context,\nwhich restrains the interpretations.\nCould be restricted to a community or domain
 
 class DecontextualizedSymbol {
   String text
@@ -31,18 +32,19 @@ class Formalization {
 
 ThoughtProxy "1" *-- "0..1" Formalization
 
-ThoughtProxy <|-- Claim
 
 DecontextualizedSymbol "*" --> "*" DecontextualizedSymbol
 (DecontextualizedSymbol , DecontextualizedSymbol) . SymbolRelation
-DecontextualizedSymbol <|-- DeclarativeSentence
+' DecontextualizedSymbol <|-- DeclarativeSentence
 
 SymbolRelation o--> "1" SymbolRelationType
 
 enum SymbolRelationType {
   equivalent
   not_equivalent
-  precision
+  specialization
+  negation
+  mutual_exclusion
 }
 
 SymbolInContext "*" o--* "1" DecontextualizedSymbol
@@ -62,29 +64,5 @@ class Document {
 note bottom: Context for the Symbol.\nUsually text, could be media.
 ' Digital objects, Agents and literals are also Topics
 
-
-Claim <|-- Argument
-
-ThoughtProxy "*" <-- Claim : entities
-Argument o--> "*" Claim : premises
-Argument o--> "1" Claim : conclusion
-
-Claim <|-- LogicalVariant
-Claim "1" <--o LogicalVariant
-
-DeclarativeSentence .. Claim
-
-class LogicalVariant {
-  truthvalue
-  Claim baseClaim
-}
-
-class ArgumentFamily {
-  Claim baseConclusion()
-  Claim[] basePremises()
-}
-
-Argument "1..*" <--o ArgumentFamily
-ThoughtProxy <|-- ArgumentFamily
 
 @enduml

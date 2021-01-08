@@ -1,0 +1,34 @@
+@startuml
+
+
+class ThoughtProxy {
+  id
+}
+
+ThoughtProxy <|-- Claim
+
+Claim <|-- Argument
+
+ThoughtProxy "*" <-- Claim : entities
+Argument o--> "*" Claim : premises
+Argument o--> "1" Claim : conclusion
+
+Claim <|-- LogicalVariant
+Claim "1" <--o LogicalVariant
+
+'DeclarativeSentence .. Claim
+
+class LogicalVariant {
+  truthvalue
+  Claim baseClaim
+}
+
+class ArgumentFamily {
+  Claim baseConclusion()
+  Claim[] basePremises()
+}
+
+Argument "1..*" <--o ArgumentFamily
+ThoughtProxy <|-- ArgumentFamily
+
+@enduml
