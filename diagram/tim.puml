@@ -2,9 +2,12 @@
 
 class Claim {
   String sentence
+  ' String negation_sentence  (must be != sentence)
 }
 
 Claim "*" <-> "*" Claim : > equivalent_to
+note  "implicitly reflexive, symmetric?, transitive?" as N2
+(Claim, Claim) .. N2
 
 '(Claim, Claim) . ClaimEquivalence
 'ClaimEquivalenceClass o-> "*" Claim
@@ -12,7 +15,7 @@ Claim "*" <-> "*" Claim : > equivalent_to
 'ClaimEquivalence "*" -> "*" ClaimEquivalence : > negation
 
 Claim "*" -> "*" Claim : > negation
-note  "anti-reflexive, symmetric, anti-transitive" as N1
+note  "anti-reflexive, symmetric?, anti-transitive?" as N1
 (Claim, Claim) .. N1
 
 @enduml
