@@ -1,34 +1,93 @@
 @startuml
 
 
-class ThoughtProxy {
+class Entity {
   id
 }
 
-ThoughtProxy <|-- Claim
+Entity <|-- Claim
+
+Entity "*" <-- Claim : entities
 
 Claim <|-- Argument
 
-ThoughtProxy "*" <-- Claim : entities
+class Argument {
+  Claim[] basePremises()
+  ' the base claim of each premise
+  Claim baseConclusion()
+  ' the base claim of the conclusion
+}
+
 Argument o--> "*" Claim : premises
+' Premises are either Base Claim, or Negation thereof
 Argument o--> "1" Claim : conclusion
+' Conclusions can be Probability Variants as well
 
 Claim <|-- LogicalVariant
 Claim "1" <--o LogicalVariant
 
-'DeclarativeSentence .. Claim
+' TODO: ClaimFormula, i.e. a Claim with an unbound variable.
+' Important for defining_claims, parametricVariants...
 
 class LogicalVariant {
-  truthvalue
+  ' A variant of the base claim which is either the negation or some probability value (formal or not)
   Claim baseClaim
 }
+
+class Negation {
+}
+
+class ProbabilityVariant {
+  probability_score [0..1]
+}
+
+Entity "*" --> "*" Entity
+(Entity, Entity) . TopicRelation
+
+Claim <|-- TopicRelation
+
+abstract class TopicRelation  {
+  Entity a
+  Entity b
+}
+
+TopicRelation <|-- Distinction
+
+class Distinction {
+  ' mutually exclusive categories or different entities
+  Claim[] defining_claims_for_A
+  Claim[] defining_claims_for_B
+}
+
+TopicRelation <|-- Specialization
+
+class Specialization {
+  ' subclassOf, instanceOf
+  Claim[] defining_claims_for_B
+}
+
+TopicRelation <|-- ParametricVariant
+class ParametricVariant {
+  ' This variant only(?) applies to comparison between ParametricClaims, not Entities in general
+  ' TODO: those claims vary through some parameter (or entity?)
+  ' The distinction between entities and qualities, if any, must be developed
+  variable
+  value_for_A
+  value_for_B
+}
+
+LogicalVariant <|-- Negation
+LogicalVariant <|-- ProbabilityVariant
 
 class ArgumentFamily {
   Claim baseConclusion()
   Claim[] basePremises()
+  ' The basePremises and baseConclusion must be the same for each member of the family.
 }
 
 Argument "1..*" <--o ArgumentFamily
-ThoughtProxy <|-- ArgumentFamily
+' Entity <|-- ArgumentFamily
+
+
 
 @enduml

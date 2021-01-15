@@ -1,0 +1,36 @@
+@startuml
+
+Claim <|-- LogicalVariant
+Claim "1" <--o LogicalVariant
+
+'DeclarativeSentence .. Claim
+
+class LogicalVariant {
+  Claim baseClaim
+}
+
+class Negation {
+}
+
+class ProbabilityVariant {
+  probability_score [0..1]
+}
+
+LogicalVariant <|-- Negation
+LogicalVariant <|-- ProbabilityVariant
+
+
+Agent <|-- Person
+Agent --> Claim
+(Agent, Claim) . BeliefScore
+class BeliefScore {
+  score [0..1]
+}
+Person --> Claim
+(Person, Claim) . DesireScore
+class DesireScore {
+  score [-1..1]
+}
+
+
+@enduml

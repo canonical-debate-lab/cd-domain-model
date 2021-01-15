@@ -33,8 +33,8 @@ class Formalization {
 ThoughtProxy "1" *-- "0..1" Formalization
 
 
-DecontextualizedSymbol "*" --> "*" DecontextualizedSymbol
-(DecontextualizedSymbol , DecontextualizedSymbol) . SymbolRelation
+Symbol "*" --> "*" Symbol
+(Symbol , Symbol) . SymbolRelation
 ' DecontextualizedSymbol <|-- DeclarativeSentence
 
 SymbolRelation o--> "1" SymbolRelationType
