@@ -12,6 +12,11 @@ Entity "*" <-- Claim : entities
 Claim <|-- Argument
 
 class Argument {
+  ' A causal or epistemic link between premises and conclusions.
+  ' logical entailment is a case of epistemic link
+  ' (Maybe distinguish those cases?)
+  ' I think deontic links always "ride" on a causal link,
+  ' but maybe they still need to be distinguished
   Claim[] basePremises()
   ' the base claim of each premise
   Claim baseConclusion()
@@ -88,6 +93,8 @@ class ArgumentFamily {
 Argument "1..*" <--o ArgumentFamily
 ' Entity <|-- ArgumentFamily
 
-
+' TODO: A Story is a coherent set of Claims (this happened),
+' causal Arguments (This happened because of this) and Valuations
+' (this happening was un/desirable).
 
 @enduml
