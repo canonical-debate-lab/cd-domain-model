@@ -1,0 +1,18 @@
+@startuml
+
+class Claim {
+  String sentences[]
+  String negations[]
+}
+
+'Claim "1" -> "1" Claim : > negation
+'note  "anti-reflexive, symmetric?, anti-transitive?" as N1
+'(Claim, Claim) .. N1
+
+class Argument {
+  supports_negation: boolean
+}
+
+Argument "*" o-> "1" Claim
+
+@enduml

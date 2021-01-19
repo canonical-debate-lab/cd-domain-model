@@ -18,4 +18,12 @@ Claim "*" -> "*" Claim : > negation
 note  "anti-reflexive, symmetric?, anti-transitive?" as N1
 (Claim, Claim) .. N1
 
+Claim o-> Claim : > supports
+note "A negation B, B equivalent_to C => A negation C" as N3
+'(Claim, Claim) .. N3
+
+Claim o-> Claim : > opposes
+' (Claim, Claim) .. N4
+
+
 @enduml
