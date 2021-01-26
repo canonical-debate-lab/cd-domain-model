@@ -6,8 +6,8 @@ class Claim {
 }
 
 Claim "*" <-> "*" Claim : > equivalent_to
-note  "implicitly reflexive, symmetric?, transitive?" as N2
-(Claim, Claim) .. N2
+note  "implicitly reflexive, symmetric, transitive?" as N2
+(Claim, Claim) . N2
 
 '(Claim, Claim) . ClaimEquivalence
 'ClaimEquivalenceClass o-> "*" Claim
@@ -15,15 +15,27 @@ note  "implicitly reflexive, symmetric?, transitive?" as N2
 'ClaimEquivalence "*" -> "*" ClaimEquivalence : > negation
 
 Claim "*" -> "*" Claim : > negation
-note  "anti-reflexive, symmetric?, anti-transitive?" as N1
+note  "anti-reflexive, symmetric, anti-transitive?" as N1
 (Claim, Claim) .. N1
 
-Claim o-> Claim : > supports
-note "A negation B, B equivalent_to C => A negation C" as N3
-'(Claim, Claim) .. N3
+'Claim o-> Claim : > supports
+
+class Support {
+  Claim supported
+  Claim supporting
+}
+note right: "A negation B, B equivalent_to C => A negation C"
+
+Claim "1" <- Support: < supported 
+Claim "1" <- Support: < supporting
+
+Claim <|-- Support
 
 Claim o-> Claim : > opposes
 ' (Claim, Claim) .. N4
 
 
+
+
 @enduml
+
