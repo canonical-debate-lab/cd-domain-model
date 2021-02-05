@@ -5,9 +5,22 @@ class Entity {
   id
 }
 
+Entity <|-- EntityVariable
+
+class EntityVariable {
+  domain: Entity
+}
+
+
 Entity <|-- Claim
 
 Entity "*" <-- Claim : entities
+
+Claim <|-- CompositeClaim
+
+class CompositeClaim {
+  unification: Map<EntityVariable, Entity>
+}
 
 Claim <|-- Argument
 
@@ -23,10 +36,10 @@ class Argument {
   ' the base claim of the conclusion
 }
 
-Argument o--> "*" Claim : premises
-' Premises are either Base Claim, or Negation thereof
-Argument o--> "1" Claim : conclusion
+Argument o--> "1" Claim : > conclusion
 ' Conclusions can be Probability Variants as well
+Argument o--> "1" Claim : > premises
+' Premises are either Base Claim, or Negation thereof
 
 Claim <|-- LogicalVariant
 Claim "1" <--o LogicalVariant

@@ -31,11 +31,6 @@ Claim "1" <- Support: < supporting
 
 Claim <|-- Support
 
-Claim o-> Claim : > opposes
-' (Claim, Claim) .. N4
-
-
-
 
 @enduml
 
