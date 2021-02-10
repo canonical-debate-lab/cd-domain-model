@@ -1,8 +1,10 @@
 @startuml
 
 class Claim {
-  String sentence
+  String? sentence
   ' String negation_sentence  (must be != sentence)
+  String generate_sentence()
+  String get_sentence()
 }
 
 Claim "*" <-> "*" Claim : > equivalent_to
