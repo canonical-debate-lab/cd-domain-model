@@ -22,16 +22,17 @@ note  "anti-reflexive, symmetric, anti-transitive?" as N1
 
 'Claim o-> Claim : > supports
 
-class Support {
-  Claim supported
-  Claim supporting
+class Argument {
+  boolean supports
+  Claim premise
+  Claim conclusion
 }
 note right: "A negation B, B equivalent_to C => A negation C"
 
-Claim "1" <- Support: < supported 
-Claim "1" <- Support: < supporting
+Claim "1" <- Argument: < premise 
+Claim "1" <- Argument: < conclusion
 
-Claim <|-- Support
+Claim <|-- Argument
 
 
 @enduml

@@ -1,0 +1,22 @@
+@startuml
+
+class Claim {
+  String* positive_sentences
+  String* negation_sentences
+  String generate_negation_sentence()
+}
+
+class Support {
+  Claim premise
+  boolean negated_premise
+  Claim conclusion
+  boolean negated_conclusion
+}
+
+Claim "1" <- Support: < premise 
+Claim "1" <- Support: < conclusion
+
+Claim <|-- Support
+
+@enduml
+
