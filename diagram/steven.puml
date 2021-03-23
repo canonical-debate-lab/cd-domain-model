@@ -8,9 +8,9 @@ class Claim {
 
 class Support {
   Claim premise
-  boolean negated_premise
+  boolean premise_affirmation
   Claim conclusion
-  boolean negated_conclusion
+  boolean conclusion_affirmation
 }
 
 Claim "1" <- Support: < premise 
