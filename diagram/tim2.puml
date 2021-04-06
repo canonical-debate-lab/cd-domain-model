@@ -2,22 +2,21 @@
 
 class Claim {
   String* sentences
+  Claim negation
   String generate_negation_sentence()
 }
 
 class Support {
-  Claim premise
+  boolean proves_conclusion
+  Claim[] premises
   Claim conclusion
 }
 
-Claim "1" <- Support: < premise 
+Claim "1..*" <- Support: < premises
 Claim "1" <- Support: < conclusion
 
 Claim <|-- Support
 
-Claim "1" -> "1" Claim : > negation
-note  "anti-reflexive, symmetric" as N1
-(Claim, Claim) .. N1
 
 @enduml
 
