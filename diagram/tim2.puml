@@ -8,14 +8,41 @@ class Claim {
 
 class Support {
   boolean proves_conclusion
-  Claim[] premises
+  Claim premise
   Claim conclusion
 }
 
-Claim "1..*" <- Support: < premises
+Claim "1" <- Support: < premise
 Claim "1" <- Support: < conclusion
 
 Claim <|-- Support
+
+abstract class CompoundClaim {
+  Claim[] components
+  Claim[] atoms()
+}
+
+Claim "1..*" <- CompoundClaim: < components
+Claim <|-- CompoundClaim
+
+CompoundClaim <|-- Disjunction
+CompoundClaim <|-- Conjunction
+
+' class Disjunction {
+'   Claim[] components
+'   Claim[] atoms()
+' }
+
+' Claim "1..*" <- Disjunction: < components
+' Claim <|-- Disjunction
+
+' class Conjunction {
+'   Disjunction[] components
+'   Claim[] atoms()
+' }
+
+' Claim "1..*" <- Conjunction: < components
+' Claim <|-- Conjunction
 
 
 @enduml
